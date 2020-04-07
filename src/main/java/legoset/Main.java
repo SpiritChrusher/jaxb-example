@@ -1,32 +1,36 @@
 package legoset;
-
-import jaxb.JAXBHelper;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.time.Year;
 import java.util.ArrayList;
+import java.util.List;
 
-
+import jaxb.JAXBHelper;
 
 public class Main {
+    public static void main(String[] args) throws Exception {
+        LegoSet legoset = new LegoSet();
+        legoset.setNumber("75211");
+        legoset.setName("Imperial TIE Fighter");
+        legoset.setTheme("Star Wars");
+        legoset.setSubtheme("Solo");
+        legoset.setYear(Year.of(2018));
+        legoset.setPieces(519);
+        legoset.setTags(List.of("Starfighter","Stormtrooper","Star Wars","Solo"));
 
-    public static void main(String[] args) throws Exception
-    {
+        ArrayList<Minifig> minifigs = new ArrayList<>();
+        minifigs.add(new Minifig(2, "Imperial Mudtrooper"));
+        minifigs.add(new Minifig(1, "Imperial Pilot"));
+        minifigs.add(new Minifig(1, "Mimban Stormtrooper"));
+        legoset.setMinifigs(minifigs);
 
-LegoSet LegoSet = new LegoSet();
-LegoSet.setName("Imerial TIE Fighter");
-LegoSet.setTheme("Star Wars");
-LegoSet.setSubtheme("Solo");
-LegoSet.setYear(Year.of(2018));
+        Weight weight = new Weight(0.89, "kg");
+        legoset.setWeight(weight);
 
-ArrayList<String> tags = new ArrayList<>();
-tags.add("StarFighter");
-tags.add("Stormtrooper");
-tags.add("Star Wars");
+        legoset.setUrl("https://brickset.com/sets/75211-1/Imperial-TIE-Fighter");
 
-        JAXBHelper.toXML(LegoSet, System.out);
+        JAXBHelper.toXML(legoset, System.out);
 
-       JAXBHelper.toXML(LegoSet, new FileOutputStream("legoSet.xml"));
-         System.out.println(JAXBHelper.fromXML(LegoSet.class, new FileInputStream("legoSet.xml")));
+        JAXBHelper.toXML(legoset, new FileOutputStream("legoSet.xml"));
     }
 }

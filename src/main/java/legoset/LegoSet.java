@@ -1,37 +1,37 @@
 package legoset;
+import lombok.Data;
+import movie.YearAdapter;
 
 import javax.xml.bind.annotation.*;
-/*import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;*/
-import java.time.*;
-import java.util.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.time.Year;
+import java.util.List;
 
-@EqualsAndHashCode(callSuper = false)
+@XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 @Data
-public class LegoSet extends Minifig{
+public class LegoSet {
+    @XmlAttribute
+    private String number;
 
-   private Year year;
-   private int pieces;
+    private String name;
+    private String theme;
+    private String subtheme;
+
+    @XmlJavaTypeAdapter(YearAdapter.class)
+    private Year year;
+
+    private int pieces;
 
     @XmlElementWrapper(name = "tags")
     @XmlElement(name = "tag")
-   private Set<String> tags;
+    private List<String> tags;
 
     @XmlElementWrapper(name = "minifigs")
     @XmlElement(name = "minifig")
-   private List<Minifig> minifigs;
+    private List<Minifig> minifigs;
 
-    public LegoSet(){}
-    public LegoSet(Year year, int pieces)
-    {
-        this.year = year;
-        this.pieces = pieces;
-    }
-
+    private Weight weight;
+    private String url;
 
 }
